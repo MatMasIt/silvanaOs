@@ -12,14 +12,15 @@ public class KeyPadConverter {
             case 227, 102 -> KeyPadKey.SIX;
             case 35, 97 -> KeyPadKey.ONE;
             case 98, 225 -> KeyPadKey.TWO;
-            case 144, 34 -> KeyPadKey.THREE;
+            case 99, 34 -> KeyPadKey.THREE;
+            case 155, 96 -> KeyPadKey.ZERO;
             case 111 -> KeyPadKey.DIVIDE;
             case 106 -> KeyPadKey.TIMES;
             case 109 -> KeyPadKey.MINUS;
             case 107  -> KeyPadKey.PLUS;
             case 10 -> KeyPadKey.ENTER;
             case 127 -> KeyPadKey.DOT;
-            default -> throw new IllegalStateException("Unexpected value: " + e.getExtendedKeyCode());
+            default -> throw  new IllegalStateException("Unexpected value: " + e.getExtendedKeyCode());
         };
     }
 }

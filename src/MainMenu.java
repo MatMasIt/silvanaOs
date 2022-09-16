@@ -11,20 +11,20 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.stream.Stream;
 
-public class MainMenu extends JFrame implements KeyListener {
+public class MainMenu extends FullScreenWindow implements KeyListener {
     private JLabel topClock;
     private JPanel centerPanel;
 
     private KeyPadKey lastKeyPadKey = null;
 
-    private JButton clock, weather, mail, calendar, word, encyclopedia, news, shutdown;
+    private JButton clock, weather, mail, calendar, word, encyclopedia, news, pinacoteca, cinema,  shutdown;
     public MainMenu() {
         IconFontSwing.register(FontAwesome.getIconFont());
         topClock = new JLabel();
 
         topClock.setFont(new Font("SansSerif", Font.BOLD, 40));
         centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(3,3));
+        centerPanel.setLayout(new GridLayout(0,3)); // three columns fixed
         clock = new JButton("Promemoria");
         clock.setFont(new Font("SansSerif", Font.BOLD, 40));
         clock.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOCK_O, 40));
@@ -53,6 +53,19 @@ public class MainMenu extends JFrame implements KeyListener {
         news.setFont(new Font("SansSerif", Font.BOLD, 40));
         news.setIcon(IconFontSwing.buildIcon(FontAwesome.NEWSPAPER_O, 40));
         news.setFocusable(false);
+
+
+        pinacoteca = new JButton("Pinacoteca");
+        pinacoteca.setFont(new Font("SansSerif", Font.BOLD, 40));
+        pinacoteca.setIcon(IconFontSwing.buildIcon(FontAwesome.PICTURE_O, 40));
+        pinacoteca.setFocusable(false);
+
+
+        cinema = new JButton("Cinema");
+        cinema.setFont(new Font("SansSerif", Font.BOLD, 40));
+        cinema.setIcon(IconFontSwing.buildIcon(FontAwesome.FILM, 40));
+        cinema.setFocusable(false);
+
         shutdown = new JButton("Spegni");
         shutdown.setFont(new Font("SansSerif", Font.BOLD, 40));
         shutdown.setIcon(IconFontSwing.buildIcon(FontAwesome.POWER_OFF, 40));
@@ -64,6 +77,8 @@ public class MainMenu extends JFrame implements KeyListener {
         centerPanel.add(word);
         centerPanel.add(encyclopedia);
         centerPanel.add(news);
+        centerPanel.add(pinacoteca);
+        centerPanel.add(cinema);
         centerPanel.add(shutdown);
 
 
@@ -74,9 +89,6 @@ public class MainMenu extends JFrame implements KeyListener {
         add(topClock, BorderLayout.NORTH);
         add(centerPanel, BorderLayout.CENTER);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         addKeyListener(this);
         GraphicsEnvironment graphics =
                 GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -102,6 +114,8 @@ public class MainMenu extends JFrame implements KeyListener {
         word.setBackground(Color.WHITE);
         encyclopedia.setBackground(Color.WHITE);
         news.setBackground(Color.WHITE);
+        pinacoteca.setBackground(Color.WHITE);
+        cinema.setBackground(Color.WHITE);
         shutdown.setBackground(Color.WHITE);
         KeyPadKey keyPadKey = KeyPadConverter.fromKeyEvent(e);
         if(keyPadKey!= KeyPadKey.ENTER) lastKeyPadKey = keyPadKey;
@@ -119,9 +133,9 @@ public class MainMenu extends JFrame implements KeyListener {
         switch (keyPadKey){
             case ONE:
                 try {
-                    new News();
+                    new News(this);
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    new ErrorAlert(this, "Errore", "Impossibile ottenere le notizie\nLa connessione INTERNET potrebbe essere assente");
                 }
                 break;
         }
@@ -150,6 +164,12 @@ public class MainMenu extends JFrame implements KeyListener {
                 news.setBackground(color);
                 break;
             case TWO:
+                pinacoteca.setBackground(color);
+                break;
+            case THREE:
+                cinema.setBackground(color);
+                break;
+            case ZERO:
                 shutdown.setBackground(color);
                 break;
         }

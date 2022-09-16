@@ -10,8 +10,10 @@ public class ClockTicker implements Runnable {
 
     public ClockTicker(JLabel clock) {
         this.clock = clock;
-        days = new ArrayList<>();
-        months = new ArrayList<>();
+    }
+
+    public static ArrayList<String> getItalianDays(){
+        ArrayList<String> days = new ArrayList<>();
         days.add("Domenica");
         days.add("Lunedì");
         days.add("Martedì");
@@ -19,6 +21,11 @@ public class ClockTicker implements Runnable {
         days.add("Giovedì");
         days.add("Venerdì");
         days.add("Sabato");
+        return days;
+    }
+
+    public static ArrayList<String> getItalianMonths(){
+        ArrayList<String> months = new ArrayList<>();
         months.add("Gennaio");
         months.add("Febbraio");
         months.add("Marzo");
@@ -31,26 +38,32 @@ public class ClockTicker implements Runnable {
         months.add("Ottobre");
         months.add("Novembre");
         months.add("Dicembre");
+        return months;
     }
-
     public void run() {
         while (true) {
-            Calendar c = Calendar.getInstance();
-            c.setTime(new Date());
-            int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-            int m = c.get(Calendar.DAY_OF_MONTH);
-            int mo = c.get(Calendar.MONTH);
-            int y = c.get(Calendar.YEAR);
-            int h = c.get(Calendar.HOUR_OF_DAY);
-            int min = c.get(Calendar.MINUTE);
-            int s = c.get(Calendar.SECOND);
-            String date = days.get(dayOfWeek-1) + " "+ m +" "+ months.get(mo-1) +" "+y+"    "+String.format("%02d", h)+":"+String.format("%02d", min)+":"+String.format("%02d", s);;
-            clock.setText(date);
+            clock.setText(italianDatetime(new Date()));
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+    public static String italianDatetime(Calendar c){
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        int m = c.get(Calendar.DAY_OF_MONTH);
+        int mo = c.get(Calendar.MONTH);
+        int y = c.get(Calendar.YEAR);
+        int h = c.get(Calendar.HOUR_OF_DAY);
+        int min = c.get(Calendar.MINUTE);
+        int s = c.get(Calendar.SECOND);
+        String date = getItalianDays().get(dayOfWeek-1) + " "+ m +" "+ getItalianMonths().get(mo-1) +" "+y+"    "+String.format("%02d", h)+":"+String.format("%02d", min)+":"+String.format("%02d", s);;
+    }
+    public static String italianDatetime(Date d){
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        return italianDatetime(c);
     }
 }

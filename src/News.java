@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
-public class News extends JFrame implements KeyListener {
+public class News extends FullScreenWindow implements KeyListener {
     private JLabel topBar;
     private JPanel centerPanel, actionPanel;
 
@@ -22,8 +22,9 @@ public class News extends JFrame implements KeyListener {
     private JButton back, up, down, open;
 
 
-    public News() throws IOException {
-        IconFontSwing.register(FontAwesome.getIconFont());
+    private JFrame parent;
+    public News(JFrame parent) throws IOException {
+        this.parent = parent;
         topBar = new JLabel("Notizie");
         topBar.setIcon(IconFontSwing.buildIcon(FontAwesome.NEWSPAPER_O, 40));
         topBar.setFont(new Font("SansSerif", Font.BOLD, 40));
@@ -31,9 +32,10 @@ public class News extends JFrame implements KeyListener {
         centerPanel.setLayout(new BorderLayout());
         RssReader reader = new RssReader();
         DefaultListModel<Item> demoList = new DefaultListModel<>();
-        reader.read("https://www.ansa.it/sito/ansait_rss.xml").sorted().forEach(demoList::addElement);
+        reader.read("https://www.ansa.it/sito/ansait_rss.xml").forEach(demoList::addElement);
 
         articles = new JList<>(demoList);
+
         articles.setCellRenderer(new RSSCellTextRenderer((int) (1500)));
 
 
@@ -66,7 +68,7 @@ public class News extends JFrame implements KeyListener {
         open.setFocusable(false);
 
         actionPanel = new JPanel();
-        actionPanel.setLayout(new GridLayout(1,4));
+        actionPanel.setLayout(new GridLayout(0,3)); // three columns fixed
 
         actionPanel.add(back);
         actionPanel.add(up);
@@ -81,9 +83,6 @@ public class News extends JFrame implements KeyListener {
         addKeyListener(this);
         articles.addKeyListener(this);
         articles.setSelectedIndex(0);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
-        setVisible(true);
         GraphicsEnvironment graphics =
                 GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice device = graphics.getDefaultScreenDevice();
