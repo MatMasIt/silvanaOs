@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="flatlaf-2.3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/flatlaf-2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jiconfont-font_awesome-4.7.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jiconfont-swing-1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jiconfont-1.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/rssreader-3.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
