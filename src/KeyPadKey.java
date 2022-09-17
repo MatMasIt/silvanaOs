@@ -14,5 +14,6 @@ public enum KeyPadKey {
     MINUS,
     PLUS,
     ENTER,
-    DOT
+    DOT,
+    CREDITS
 }

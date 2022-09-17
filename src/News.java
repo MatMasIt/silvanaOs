@@ -22,9 +22,7 @@ public class News extends FullScreenWindow implements KeyListener {
     private JButton back, up, down, open;
 
 
-    private JFrame parent;
-    public News(JFrame parent) throws IOException {
-        this.parent = parent;
+    public News() throws IOException {
         topBar = new JLabel("Notizie");
         topBar.setIcon(IconFontSwing.buildIcon(FontAwesome.NEWSPAPER_O, 40));
         topBar.setFont(new Font("SansSerif", Font.BOLD, 40));

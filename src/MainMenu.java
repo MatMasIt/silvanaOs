@@ -1,6 +1,7 @@
 
 import com.apptasticsoftware.rssreader.Item;
 import com.apptasticsoftware.rssreader.RssReader;
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import jiconfont.icons.font_awesome.FontAwesome;
 import jiconfont.swing.IconFontSwing;
@@ -17,34 +18,34 @@ public class MainMenu extends FullScreenWindow implements KeyListener {
 
     private KeyPadKey lastKeyPadKey = null;
 
-    private JButton clock, weather, mail, calendar, word, encyclopedia, news, pinacoteca, cinema,  shutdown;
+    private JButton calculator, weather, mail, calendar, word, encyclopedia, news, pinacoteca, cinema,  shutdown, music;
+    private JButton riconoscimenti;
+    private JPanel riconoscimentiSpace;
+
+
     public MainMenu() {
         IconFontSwing.register(FontAwesome.getIconFont());
         topClock = new JLabel();
 
         topClock.setFont(new Font("SansSerif", Font.BOLD, 40));
         centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(0,3)); // three columns fixed
-        clock = new JButton("Promemoria");
-        clock.setFont(new Font("SansSerif", Font.BOLD, 40));
-        clock.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOCK_O, 40));
-        clock.setFocusable(false);
-        weather = new JButton("Meteo");
-        weather.setFont(new Font("SansSerif", Font.BOLD, 40));
-        weather.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOUD, 40));
-        weather.setFocusable(false);
+        centerPanel.setLayout(new GridLayout(0,3)); // three columns fixedc
         mail = new JButton("Posta Elettronica");
         mail.setFont(new Font("SansSerif", Font.BOLD, 40));
         mail.setIcon(IconFontSwing.buildIcon(FontAwesome.ENVELOPE, 40));
         mail.setFocusable(false);
-        calendar = new JButton("Calendario");
-        calendar.setFont(new Font("SansSerif", Font.BOLD, 40));
-        calendar.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 40));
-        calendar.setFocusable(false);
+        weather = new JButton("Meteo");
+        weather.setFont(new Font("SansSerif", Font.BOLD, 40));
+        weather.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOUD, 40));
+        weather.setFocusable(false);
         word = new JButton("Quaderni");
         word.setFont(new Font("SansSerif", Font.BOLD, 40));
         word.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 40));
         word.setFocusable(false);
+        calendar = new JButton("Calendario");
+        calendar.setFont(new Font("SansSerif", Font.BOLD, 40));
+        calendar.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 40));
+        calendar.setFocusable(false);
         encyclopedia = new JButton("Enciclopedia");
         encyclopedia.setFont(new Font("SansSerif", Font.BOLD, 40));
         encyclopedia.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOK, 40));
@@ -53,8 +54,6 @@ public class MainMenu extends FullScreenWindow implements KeyListener {
         news.setFont(new Font("SansSerif", Font.BOLD, 40));
         news.setIcon(IconFontSwing.buildIcon(FontAwesome.NEWSPAPER_O, 40));
         news.setFocusable(false);
-
-
         pinacoteca = new JButton("Pinacoteca");
         pinacoteca.setFont(new Font("SansSerif", Font.BOLD, 40));
         pinacoteca.setIcon(IconFontSwing.buildIcon(FontAwesome.PICTURE_O, 40));
@@ -66,20 +65,43 @@ public class MainMenu extends FullScreenWindow implements KeyListener {
         cinema.setIcon(IconFontSwing.buildIcon(FontAwesome.FILM, 40));
         cinema.setFocusable(false);
 
+        calculator = new JButton("Calcolatrice");
+        calculator.setFont(new Font("SansSerif", Font.BOLD, 40));
+        calculator.setIcon(IconFontSwing.buildIcon(FontAwesome.CALCULATOR, 40));
+        calculator.setFocusable(false);
+
+        music = new JButton("Giradischi");
+        music.setFont(new Font("SansSerif", Font.BOLD, 40));
+        music.setIcon(IconFontSwing.buildIcon(FontAwesome.MUSIC, 40));
+        music.setFocusable(false);
+
         shutdown = new JButton("Spegni");
         shutdown.setFont(new Font("SansSerif", Font.BOLD, 40));
         shutdown.setIcon(IconFontSwing.buildIcon(FontAwesome.POWER_OFF, 40));
         shutdown.setFocusable(false);
-        centerPanel.add(clock);
-        centerPanel.add(weather);
+
         centerPanel.add(mail);
-        centerPanel.add(calendar);
+        centerPanel.add(weather);
         centerPanel.add(word);
+        centerPanel.add(calendar);
         centerPanel.add(encyclopedia);
         centerPanel.add(news);
         centerPanel.add(pinacoteca);
         centerPanel.add(cinema);
+        centerPanel.add(calculator);
+        centerPanel.add(music);
         centerPanel.add(shutdown);
+        riconoscimentiSpace = new JPanel();
+        riconoscimentiSpace.setLayout(new BorderLayout());
+        JLabel credits = new JLabel("<html><div style='text-align: center;'>SilvanaOs 1.0<br />2022, Mattia Mascarello, Alen Paripovic</div></html>");
+        credits.setFont(new Font("SansSerif", Font.BOLD, 40));
+        riconoscimentiSpace.add(credits, BorderLayout.CENTER);
+        riconoscimenti = new JButton("Apri Riconoscimenti (D)");
+        riconoscimenti.setFont(new Font("SansSerif", Font.BOLD, 30));
+        riconoscimenti.setIcon(IconFontSwing.buildIcon(FontAwesome.INFO_CIRCLE, 40));
+        riconoscimenti.setFocusable(false);
+        riconoscimentiSpace.add(riconoscimenti, BorderLayout.SOUTH);
+        centerPanel.add(riconoscimentiSpace);
 
 
         Runnable r = new ClockTicker(topClock);
@@ -107,17 +129,21 @@ public class MainMenu extends FullScreenWindow implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        clock.setBackground(Color.WHITE);
-        weather.setBackground(Color.WHITE);
         mail.setBackground(Color.WHITE);
-        calendar.setBackground(Color.WHITE);
+        weather.setBackground(Color.WHITE);
         word.setBackground(Color.WHITE);
+        calendar.setBackground(Color.WHITE);
         encyclopedia.setBackground(Color.WHITE);
         news.setBackground(Color.WHITE);
         pinacoteca.setBackground(Color.WHITE);
         cinema.setBackground(Color.WHITE);
+        calculator.setBackground(Color.WHITE);
+        music.setBackground(Color.WHITE);
         shutdown.setBackground(Color.WHITE);
-        KeyPadKey keyPadKey = KeyPadConverter.fromKeyEvent(e);
+        riconoscimenti.setBackground(Color.WHITE);
+        KeyPadKey keyPadKey;
+        if(e.getExtendedKeyCode() == 68) keyPadKey = KeyPadKey.CREDITS;
+        else keyPadKey  = KeyPadConverter.fromKeyEvent(e);
         if(keyPadKey!= KeyPadKey.ENTER) lastKeyPadKey = keyPadKey;
         if(keyPadKey == KeyPadKey.ENTER){
             setButton(lastKeyPadKey, Color.GREEN);
@@ -131,46 +157,55 @@ public class MainMenu extends FullScreenWindow implements KeyListener {
 
     private void open(KeyPadKey keyPadKey){
         switch (keyPadKey){
-            case ONE:
+            case SIX:
                 try {
-                    new News(this);
+                    new News();
                 } catch (IOException e) {
                     new ErrorAlert(this, "Errore", "Impossibile ottenere le notizie\nLa connessione INTERNET potrebbe essere assente");
                 }
+                break;
+            case CREDITS:
+                new Credits();
                 break;
         }
     }
     private void setButton(KeyPadKey keyPadKey, Color color){
         switch (keyPadKey) {
             case SEVEN:
-                clock.setBackground(color);
+                mail.setBackground(color);
                 break;
             case EIGHT:
                 weather.setBackground(color);
                 break;
             case NINE:
-                mail.setBackground(color);
+                word.setBackground(color);
                 break;
             case FOUR:
                 calendar.setBackground(color);
                 break;
             case FIVE:
-                word.setBackground(color);
-                break;
-            case SIX:
                 encyclopedia.setBackground(color);
                 break;
-            case ONE:
+            case SIX:
                 news.setBackground(color);
                 break;
-            case TWO:
+            case ONE:
                 pinacoteca.setBackground(color);
                 break;
-            case THREE:
+            case TWO:
                 cinema.setBackground(color);
                 break;
+            case THREE:
+                calculator.setBackground(color);
+                break;
             case ZERO:
+                music.setBackground(color);
+                break;
+            case DOT:
                 shutdown.setBackground(color);
+                break;
+            case CREDITS:
+                riconoscimenti.setBackground(color);
                 break;
         }
     }

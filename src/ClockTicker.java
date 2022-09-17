@@ -58,7 +58,7 @@ public class ClockTicker implements Runnable {
         int h = c.get(Calendar.HOUR_OF_DAY);
         int min = c.get(Calendar.MINUTE);
         int s = c.get(Calendar.SECOND);
-        String date = getItalianDays().get(dayOfWeek-1) + " "+ m +" "+ getItalianMonths().get(mo-1) +" "+y+"    "+String.format("%02d", h)+":"+String.format("%02d", min)+":"+String.format("%02d", s);;
+        return getItalianDays().get(dayOfWeek-1) + " "+ m +" "+ getItalianMonths().get(mo-1) +" "+y+"    "+String.format("%02d", h)+":"+String.format("%02d", min)+":"+String.format("%02d", s);
     }
     public static String italianDatetime(Date d){
 
